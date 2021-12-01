@@ -22,14 +22,15 @@ part1 :: proc(input: string) -> int {
     lines := strings.split(string(input), "\n")
     defer delete(lines)
 
-    previous := -1
+    previous, err := strconv.parse_int(lines[0])
+    assert(err)
     count := 0
-    for line in lines {
+    for line in lines[1:] {
         depth, ok := strconv.parse_int(line) 
         if !ok {
             panic(line)
         }
-        if previous >= 0 && depth > previous {
+        if depth > previous {
             count += 1
         }
         previous = depth
@@ -52,22 +53,19 @@ part2 :: proc(input: string) -> int {
     assert(v1_ok)
     v2, v2_ok := strconv.parse_int(lines[1])
     assert(v2_ok)
-    window := Window{v1, v2, -1}
+    v3, v3_ok := strconv.parse_int(lines[2])
+    window := Window{v1, v2, v3}
     count := 0
-    for line in lines[2:] {
+    for line in lines[3:] {
         depth, ok := strconv.parse_int(line) 
         assert(ok)
-        // fmt.printf("window: %v, new depth: %v\n", window, depth)
-        if window[2] == -1 {
-            window[2] = depth
-        } else {
-            prev_sum := sum(window)
-            window.xyz = window.yzx
-            window.z = depth
-            new_sum := sum(window)
-            if new_sum > prev_sum {
-                count += 1
-            }
+
+        prev_sum := sum(window)
+        window.xyz = window.yzx
+        window.z = depth
+        new_sum := sum(window)
+        if new_sum > prev_sum {
+            count += 1
         }
     }
     return count

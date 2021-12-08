@@ -6,6 +6,11 @@ import "core:fmt"
 import "core:strconv"
 import "core:slice"
 
+/*
+    Information related to the bits of a given
+    column. [bit_len]Column gives meta data
+    about a series of bit strings
+*/
 Column :: struct {
 	zeros, ones: int,
 }
@@ -86,6 +91,8 @@ bit_info :: proc(lines: []string) -> [bit_len]Column
 // probably a faster way to do this
 // partition [most_common; least_common]
 // returns first index of least_common
+// effectively does the same as c++ std::partition but implemented poorly
+// since it doesn't exist in the odin std lib yet
 partition :: proc(lines: []string, b: []Column, idx: int) -> int {
     d := b[idx]
     zero :: proc(l, r: string) -> bool {

@@ -3,9 +3,18 @@
         {
             "name": "core",
             "path": "/Users/ian/local/odin/core"
+        },
+        {
+            "name": "shared",
+            "path": "/Users/ian/local/odin/shared"
+        },
+        {
+            "name": "vendor",
+            "path": "/Users/ian/local/odin/vendor"
         }
     ],
     "enable_document_symbols": true,
     "enable_semantic_tokens": false,
-    "enable_hover": true
+    "enable_hover": true,
+    "verbose": true
 }
